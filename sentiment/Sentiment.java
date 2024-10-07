@@ -1,4 +1,7 @@
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
@@ -29,8 +32,18 @@ public class Sentiment {
             String[] sentences = value.toString().split("\\.");
             for (String str : sentences) {
                 // Trim whitespace and avoid empty strings
+                str = str.trim();
+                if (str.isEmpty()) {
+                    continue;
+                }
+
+                // Initialize counters for each sentence
+                int positiveCount = 0;
+                int negativeCount = 0;
+                
+                // Split the sentence into words
                 String[] words = str.split("\\s+");
-                    // Count positive and negative words
+                // Count positive and negative words
                 for (String word : words) {
                     String lowerCaseWord = word.toLowerCase(); // Case insensitive comparison
                     if (positiveWords.contains(lowerCaseWord)) {
@@ -72,8 +85,8 @@ public class Sentiment {
     // Main Method to configure and run the job
     public static void main(String[] args) throws Exception {
         Configuration conf = new Configuration();
-        Job job = Job.getInstance(conf, "word count");
-        job.setJarByClass(WordCount.class);
+        Job job = Job.getInstance(conf, "sentiment analysis");
+        job.setJarByClass(Sentiment.class); // Correct class name used here
         job.setMapperClass(TokenizerMapper.class);
         job.setCombinerClass(IntSumReducer.class);
         job.setReducerClass(IntSumReducer.class);
