@@ -68,7 +68,7 @@ python3 cooccur/performance.py
 python3 sentiment/performance.py
 
 ```
-To get individual MapReduce element, use 
+To get individual MapReduce element performance, use 
 ```
 hadoop jar wordoccur.jar WordCoOccurrence /input /output2
 ```
