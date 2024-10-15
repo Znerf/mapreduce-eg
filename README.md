@@ -13,7 +13,7 @@ his codebase contains Java implementations for three key tasks: word count, word
 Before you start you need to install following on the platfrom
 * Docker
 * docker compose or docker-compose
-* Python
+* Python3
 * git
 
 ### Installing
@@ -37,7 +37,7 @@ Now get into the namenode server and use following commands
 ```
 git clone https://github.com/Znerf/mapreduce-eg
 cd mapreduce-eg
-python count/test.py
+python3 count/test.py
 ```
 
 ## Test datasets
