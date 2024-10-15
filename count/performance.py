@@ -56,14 +56,6 @@ def run_hadoop_job(jar_file, input_file):
 
             if output_files_process.returncode == 0:
                 print("Success")
-                # output_files = [line.split()[-1] for line in output_files_stdout.decode().splitlines() if line]
-                # for output_file in output_files:
-                #     print("Output from {}:".format(output_file))
-                    
-                #     cat_cmd = ["hdfs", "dfs", "-cat", output_file]
-                #     cat_process = subprocess.Popen(cat_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-                #     cat_stdout, cat_stderr = cat_process.communicate()
-                #     print(cat_stdout.decode())
             else:
                 print("Failed to list output files.")
                 print("Errors:\n", output_files_stderr.decode())
