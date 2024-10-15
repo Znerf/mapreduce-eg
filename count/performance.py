@@ -42,11 +42,14 @@ def run_hadoop_job(jar_file, input_text):
                 hdfs_output_dir
             ]
 
-
+            process_start = time.time()
             process = subprocess.Popen(hadoop_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             stdout, stderr = process.communicate()
+            process_end = time.time()
 
+            print("Mapreduce Job time::", process_end-process_start)
 
+            clearing_start = time.time()
             if process.returncode == 0:
                 print("Hadoop job completed successfully.")
 
@@ -96,7 +99,9 @@ def run_hadoop_job(jar_file, input_text):
             else:
                 print("Failed to remove output directory from HDFS.")
                 print("Errors:\n", cleanup_output_stderr.decode())
+            clearing_end = time.time()
 
+            print("Clearing time::", clearing_end-clearing_start)
     except Exception as e:
         print("An error occurred:", str(e))
 
