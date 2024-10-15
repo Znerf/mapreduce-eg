@@ -10,7 +10,7 @@ his codebase contains Java implementations for three key tasks: word count, word
 
 ### Dependencies
 
-Before you start you need to install following on your OS
+Before you start you need to install following on the platfrom
 * Docker
 * docker compose or docker-compose
 * Python
