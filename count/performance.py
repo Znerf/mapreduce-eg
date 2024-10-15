@@ -13,17 +13,17 @@ def measure_time(func):
     return wrapper
 
 @measure_time
-def run_hadoop_job(jar_file, input_text):
+def run_hadoop_job(jar_file, input_file):
     try:
         with tempfile.NamedTemporaryFile(delete=False, suffix='.txt') as temp_input_file:
             upload_start = time.time()
-            temp_input_file.write(input_text.encode('utf-8'))
-            temp_input_file.close()
+            # temp_input_file.write(input_text.encode('utf-8'))
+            # temp_input_file.close()
 
             hdfs_input_path = "/tmp/temp_input_file.txt"  
             hdfs_output_dir = "/tmp/hadoop_output"         
 
-            upload_cmd = ["hdfs", "dfs", "-put", temp_input_file.name, hdfs_input_path]
+            upload_cmd = ["hdfs", "dfs", "-put", input_file, hdfs_input_path]
             upload_process = subprocess.Popen(upload_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             upload_stdout, upload_stderr = upload_process.communicate()
 
@@ -75,7 +75,7 @@ def run_hadoop_job(jar_file, input_text):
                 print("Errors:\n", stderr.decode())
 
             
-            os.remove(temp_input_file.name)
+            # os.remove(temp_input_file.name)
 
             
             cleanup_input_cmd = ["hdfs", "dfs", "-rm", hdfs_input_path]
@@ -108,6 +108,6 @@ def run_hadoop_job(jar_file, input_text):
 
 # main
 jar_file = "count/wordcount.jar"
-input_text = "Hello world Hello Hadoop\nThis is a simple test\nHello again"
+input_text = "txt/4.txt"
 run_hadoop_job(jar_file, input_text)
 
