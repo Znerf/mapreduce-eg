@@ -38,10 +38,13 @@ git clone https://github.com/Znerf/mapreduce-eg
 cd mapreduce-eg
 python count/test.py
 ```
+## Help
+
+Testing .txt files are not included in this repo because of it's sizes but will be provided upon request
 
 ## Help
 
-Contact the Authors for the supports
+Contact the Authors for the support
 
 ## Authors
 
