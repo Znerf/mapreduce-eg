@@ -70,10 +70,6 @@ def run_hadoop_job(jar_file, input_file):
         else:
             print("Hadoop job failed with return code:", process.returncode)
             print("Errors:\n", stderr.decode())
-
-        
-        # os.remove(temp_input_file.name)
-
         
         cleanup_input_cmd = ["hdfs", "dfs", "-rm", hdfs_input_path]
         
@@ -127,6 +123,9 @@ def run_hadoop_job(jar_file, input_file):
 
 # main
 jar_file = "count/wordcount.jar"
-input_text = "txt/4.txt"
-run_hadoop_job(jar_file, input_text)
+
+for x in ["4.txt","8.txt","12.txt","16.txt"]:
+    print("Executing file ::",x)
+    input_text = "txt/"+x
+    run_hadoop_job(jar_file, input_text)
 
