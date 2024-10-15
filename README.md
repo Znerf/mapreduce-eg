@@ -57,6 +57,13 @@ Contributors names and contact info
 * Harsha
 * Kaleb
 
+## Disclaimer
+This is tested on ubuntu local server and might not work on Apple owned operating system. 
+
+Server spec:
+* 4gb ram
+* Intel i5 7th gen vpro
+* no gpu
 
 
 
