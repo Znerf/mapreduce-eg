@@ -87,7 +87,7 @@ def run_hadoop_job(jar_file, input_text):
 
 
 # main
-jar_file = "wordcount.jar"
+jar_file = "count/wordcount.jar"
 input_text = "Hello world Hello Hadoop\nThis is a simple test\nHello again"
 run_hadoop_job(jar_file, input_text)
 
