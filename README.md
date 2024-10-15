@@ -42,7 +42,7 @@ python3 count/test.py
 
 ## Test datasets
 
-Testing .txt files are not included in this repo because of it's sizes but will be provided upon request
+Testing .txt files are not included in this repo because of its sizes but will be provided upon request
 
 ## Help
 
