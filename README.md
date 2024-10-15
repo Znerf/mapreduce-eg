@@ -58,7 +58,7 @@ Contributors names and contact info
 * Kaleb
 
 ## Disclaimer
-This is tested on ubuntu local server and might not work on Apple owned operating system. 
+This is tested on ubuntu local server and might not work on Apple owned ARM based operating systems. 
 
 Server spec:
 * 4gb ram
