@@ -14,14 +14,12 @@ def measure_time(func):
 
 @measure_time
 def run_hadoop_job(jar_file, input_file):
+    hdfs_input_path = "/tmp/temp_input_file.txt"  
+    hdfs_output_dir = "/tmp/hadoop_output" 
+
     try:
         with tempfile.NamedTemporaryFile(delete=False, suffix='.txt') as temp_input_file:
             upload_start = time.time()
-            # temp_input_file.write(input_text.encode('utf-8'))
-            # temp_input_file.close()
-
-            hdfs_input_path = "/tmp/temp_input_file.txt"  
-            hdfs_output_dir = "/tmp/hadoop_output"         
 
             upload_cmd = ["hdfs", "dfs", "-put", input_file, hdfs_input_path]
             upload_process = subprocess.Popen(upload_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -104,6 +102,28 @@ def run_hadoop_job(jar_file, input_file):
             print("Clearing time::", clearing_end-clearing_start)
     except Exception as e:
         print("An error occurred:", str(e))
+
+        cleanup_input_cmd = ["hdfs", "dfs", "-rm", hdfs_input_path]
+        
+        cleanup_output_cmd = ["hdfs", "dfs", "-rm", "-r", hdfs_output_dir]
+        
+        cleanup_output_process = subprocess.Popen(cleanup_output_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        cleanup_output_stdout, cleanup_output_stderr = cleanup_output_process.communicate()
+
+        if cleanup_output_process.returncode == 0:
+            print("Successfully removed output directory from HDFS:",hdfs_output_dir)
+        else:
+            print("Failed to remove output directory from HDFS.")
+            print("Errors:\n", cleanup_output_stderr.decode())
+
+        cleanup_output_process = subprocess.Popen(cleanup_input_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        cleanup_output_stdout, cleanup_output_stderr = cleanup_output_process.communicate()
+
+        if cleanup_output_process.returncode == 0:
+            print("Successfully removed output directory from HDFS:",hdfs_output_dir)
+        else:
+            print("Failed to remove output directory from HDFS.")
+            print("Errors:\n", cleanup_output_stderr.decode())
 
 
 # main
