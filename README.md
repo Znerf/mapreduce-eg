@@ -59,7 +59,7 @@ python3 sentiment/test.py
 
 ```
 
-## Calcuating Performance
+## Calculating Performance
 This will give you loading time, mapreduce time and unloading time
 
 ```
@@ -68,7 +68,7 @@ python3 cooccur/performance.py
 python3 sentiment/performance.py
 
 ```
-To get individual Map reduce element, use 
+To get individual MapReduce element, use 
 ```
 hadoop jar wordoccur.jar WordCoOccurrence /input /output2
 ```
