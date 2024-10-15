@@ -37,7 +37,7 @@ def run_hadoop_job(jar_file, input_text):
             
 
             hadoop_cmd = [
-                'hadoop', 'jar', jar_file, 'WordCount',
+                'hadoop', 'jar', jar_file, 'Sentiment',
                 hdfs_input_path,
                 hdfs_output_dir
             ]
