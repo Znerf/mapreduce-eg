@@ -14,6 +14,7 @@ Before you start you need to install following on your OS
 * Docker
 * docker compose or docker-compose
 * Python
+* git
 
 ### Installing
 
