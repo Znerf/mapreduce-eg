@@ -44,6 +44,35 @@ python3 count/test.py
 
 Testing .txt files are not included in this repo because of its sizes but will be provided upon request
 
+## Overview
+This document contain three mapreduce examples
+1. Word Count
+2. Word Cooccurance
+3. Sentiment Count
+
+## Testing each case
+
+```
+python3 count/test.py
+python3 cooccur/test.py
+python3 sentiment/test.py
+
+```
+
+## Calcuating Performance
+This will give you loading time, mapreduce time and unloading time
+
+```
+python3 count/performance.py
+python3 cooccur/performance.py
+python3 sentiment/performance.py
+
+```
+To get individual Map reduce element, use 
+```
+hadoop jar wordoccur.jar WordCoOccurrence /input /output2
+```
+
 ## Help
 
 Contact the Authors for the support
