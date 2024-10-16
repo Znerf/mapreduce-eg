@@ -91,15 +91,17 @@ def run_hadoop_job(jar_file, input_text):
 count_actual = 824.0 # Actual number of words in passage1.txt
 
 jar_file = "count/wordcount.jar"
-with open("txt/passage1.txt") as file:
+
+with open("txt/passage1.txt") as file: # Read the sample txt file for validation purposes.
     content = file.read()
+
 input_text = content
 run_hadoop_job(jar_file, input_text)
 
 with open("/tmp/hadoop_output") as file:
     result = file.read()
 
-result_num = re.findall(r'd+', result)
+result_num = re.findall(r'd+', result) # Regex to extract the numerical data from the output file. 
 result_num = [int(num) for num in result_num]
 
 print(f"\n-------\nRESULTS\n\t{result_num[0]/count_actual}%\n\t({result_num[0]}/{count_actual})\n")
