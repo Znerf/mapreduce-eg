@@ -84,7 +84,7 @@ Contributors names and contact info
 * Chelsea Jones
 * Sriharsha
 * Harsha
-* Kaleb
+* Kaleb (github.com/kalash-76)
 
 ## Disclaimer
 This is tested on ubuntu local server and might not work on Apple owned ARM based operating systems. 
