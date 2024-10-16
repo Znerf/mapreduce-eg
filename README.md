@@ -33,7 +33,7 @@ This will install setup hadoop and hdfs system in your server
 
 ### Executing program
 
-Now get into the namenode server and use following commands
+Now get into the namenode server and use following commands. Make sure you have git and python installed on the server.
 ```
 git clone https://github.com/Znerf/mapreduce-eg
 cd mapreduce-eg
