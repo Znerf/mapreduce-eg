@@ -60,7 +60,7 @@ python3 sentiment/test.py
 ```
 
 ## Calculating Performance
-This will give you loading time, mapreduce time and unloading time
+This will give you loading time, mapreduce time and unloading time. For the running of this, one must add 4.txt,8.txt,12.txt and 16.txt in txt folder.
 
 ```
 python3 count/performance.py
@@ -68,7 +68,7 @@ python3 cooccur/performance.py
 python3 sentiment/performance.py
 
 ```
-To get individual MapReduce element performance, use 
+Add some txt file in input folder. To get individual MapReduce element performance, use 
 ```
 hadoop jar wordoccur.jar WordCoOccurrence /input /output2
 ```
