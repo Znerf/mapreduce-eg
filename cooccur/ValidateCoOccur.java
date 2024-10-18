@@ -9,8 +9,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 // Used chatGPT to help translate the original python script to Java, since the docker image was only able to use the JVM.
+// Also used to speed along development
 
-public class Validate {
+
+public class ValidateCoOccur {
 
     public static String runHadoopJob(String jarFile, String inputText) {
         ProcessBuilder processBuilder;
@@ -39,7 +41,7 @@ public class Validate {
 
             // Run Hadoop job
             List<String> hadoopCmd = Arrays.asList(
-                    "hadoop", "jar", jarFile, "WordCount", hdfsInputPath, hdfsOutputDir
+                    "hadoop", "jar", jarFile, "WordCoOccurrence", hdfsInputPath, hdfsOutputDir
             );
             processBuilder = new ProcessBuilder(hadoopCmd);
             process = processBuilder.start();
@@ -235,20 +237,20 @@ public class Validate {
     
 
     public static void main(String[] args) {
-        String countActual = "";
-        try {
-            countActual = new String(Files.readAllBytes(Paths.get("validate-passage1.txt")), StandardCharsets.UTF_8);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // String countActual = "";
+        // try {
+        //     countActual = new String(Files.readAllBytes(Paths.get("validate-passage1.txt")), StandardCharsets.UTF_8);
+        // } catch (IOException e) {
+        //     e.printStackTrace();
+        // }
 
-        String jarFile = "wordcount.jar";
+        String jarFile = "wordcoocur.jar";
 
         try {
             String inputText = new String(Files.readAllBytes(Paths.get("../txt/passage1.txt")), StandardCharsets.UTF_8);
             String result = runHadoopJob(jarFile, inputText);
 
-            System.out.println("\n\nRESULT: " + similarity(countActual, result) + "% Similarity\n\n");
+            // System.out.println("\n\nRESULT: " + similarity(countActual, result) + "% Similarity\n\n");
 
             cleanupHDFS("/tmp/hadoop_output");
 
