@@ -8,56 +8,80 @@ his codebase contains Java implementations for three key tasks: word count, word
 
 ## Getting Started
 
+Some of the instructions are based on the following article:
+
+ https://medium.com/@guillermovc/setting-up-hadoop-with-docker-and-using-mapreduce-framework-c1cd125d4f7b
+
 ### Dependencies
 
-Before you start you need to install following on the platfrom
+Before starting, install and make sure the following work on your system 
 * Docker
 * docker compose or docker-compose
-* Python3
 * git
 
-### Installing
+### Installation & Setup
 
-You can use these commands 
+1. Clone the hadoop docker repository to run the hadoop server
+    - `git clone https://github.com/big-data-europe/docker-hadoop`
+2. Then clone our repo
+    - `git clone https://github.com/Znerf/mapreduce-eg.git`
+3. `cd` into the docker hadoop directory
+4. Start Docker Desktop
+5. Run `docker-compose up -d`
+6. Wait for the containers to boot up
+7. Copy our repo into the namemode server
+    - `cd` into to the directory that holds the mapreduce-eg folder
+    - run `docker cp mapreduce-eg namenode:/tmp`
+8. Enter the namenode server with `docker exec -it namenode bash`. This will give you the terminal for the server.
+9. Other (possibly) needed commands
+    - Run `hdfs dfs -mkdir -p /user/root`
+    - Run `hdfs dfs -mkdir /user/root/input`
 
+### Executing (Word Count) Program
+Currently the only working example is the validation script for count. The validation scripts for CoOccurrence and Sentiment are functional for running an example, but do not validate the output for the time being. 
+
+Once you are ready to run the program, make sure you are still in the shell for the server and navigate to `/tmp/mapreduce-eg/count`
+
+`javac ValidateCount.java` to compile the validation program (will be precompiled in future).
+
+`java ValidateCount` to run
+
+The output should show that the hadoop job was completed successfully, then output the mapreduce word count result for all words in the test input text file. 
+
+It will also run a simple calculation to determine the percent match to the "groundtruth" numbers that were preliminarily calculated by this online tool https://design215.com/toolbox/wordlist.php
+
+The validation psuedocode for similarity is as follows:
 ```
-docker compose up
-```
-or 
+Make map1 of ground-truth string from file (word:number of occurences)
+Make map2 of result from mapreduce
 
-```
-docker-compose up
-```
+for every word in map1
+    if matching word in map2
+        num1 and num2 for word in map1 and map2
+        max = max(num1, num2)
+        absdiff = absolute value (num1 - num2)
+        similarity = (1 - (absDifference / max)) * 100;
+        percentage += similarity;
 
-This will install setup hadoop and hdfs system in your server
-
-### Executing program
-
-Now get into the namenode server and use following commands. Make sure you have git and python installed on the server.
-```
-git clone https://github.com/Znerf/mapreduce-eg
-cd mapreduce-eg
-python3 count/test.py
+overall similarity = percentage / total words
 ```
 
 ## Test datasets
 
-Testing .txt files are not included in this repo because of its sizes but will be provided upon request
+A sample dataset is included in the /txt/ directory for validation purposes. 
 
 ## Overview
-This document contain three mapreduce examples
+This Repo Contains 3 MapReduce operations:
 1. Word Count
 2. Word Cooccurance
 3. Sentiment Count
 
 ## Testing each case
+1. `/tmp/mapreduce-eg/count` -> `javac ValidateCount.java` -> `java ValidateCount`
+2. `/tmp/mapreduce-eg/coocur` -> `javac ValidateCoOccur.java` -> `java ValidateCoOccur`
+3. `/tmp/mapreduce-eg/sentiment`-> `javac ValidateSentiment.java` -> `java ValidateSentiment`
 
-```
-python3 count/test.py
-python3 cooccur/test.py
-python3 sentiment/test.py
-
-```
+You only have to run `javac` once per `*.java` file. 
 
 ## Calculating Performance
 This will give you loading time, mapreduce time and unloading time. For the running of this, one must add 4.txt,8.txt,12.txt and 16.txt in txt folder.
@@ -73,6 +97,8 @@ Add some txt file in input folder. To get individual MapReduce element performan
 hadoop jar wordoccur.jar WordCoOccurrence /input /output2
 ```
 
+**NOTE**: Did not get to converting and debugging performance scripts into Java due to time constraint. Running python does not work in this docker environment due to the debian version being outdated and not allowing `apt-get install` of python. 
+
 ## Help
 
 Contact the Authors for the support
@@ -86,6 +112,8 @@ Contributors names and contact info
 * Harsha
 * Kaleb (github.com/kalash-76)
 
+<<<<<<< HEAD
+=======
 ## Disclaimer
 This is tested on ubuntu local server and might not work other system. Tested negative on Apple M series laptop and windows 
 
@@ -94,5 +122,6 @@ Server spec:
 * Intel i5 7th gen vpro
 * no gpu
 
+>>>>>>> main
 
 
