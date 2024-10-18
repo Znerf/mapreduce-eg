@@ -100,7 +100,7 @@ hadoop jar wordoccur.jar WordCoOccurrence /input /output2
 **NOTE**: Did not get to converting and debugging performance scripts into Java due to time constraint. Running python does not work in this docker environment due to the debian version being outdated and not allowing `apt-get install` of python. 
 
 ## Further
-Python variation of code runs in ubuntu system. Python code are tested on such server
+Python variation of code are ran in ubuntu system and mightnot work in other operating system. 
 
 ## Help
 
