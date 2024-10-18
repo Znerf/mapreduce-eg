@@ -30,8 +30,8 @@ Before starting, install and make sure the following work on your system
 5. Run `docker-compose up -d`
 6. Wait for the containers to boot up
 7. Copy our repo into the namemode server
-    - `cd` into to the directory that holds the mapreduce folder
-    - run `cp mapreduce-eg namenode:/tmp`
+    - `cd` into to the directory that holds the mapreduce-eg folder
+    - run `docker cp mapreduce-eg namenode:/tmp`
 8. Enter the namenode server with `docker exec -it namenode bash`. This will give you the terminal for the server.
 9. Other (possibly) needed commands
     - Run `hdfs dfs -mkdir -p /user/root`
