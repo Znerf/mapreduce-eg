@@ -115,8 +115,6 @@ Contributors names and contact info
 * Harsha
 * Kaleb (github.com/kalash-76)
 
-<<<<<<< HEAD
-=======
 ## Disclaimer
 This is tested on ubuntu local server and might not work other system. Tested negative on Apple M series laptop and windows 
 
@@ -125,6 +123,5 @@ Server spec:
 * Intel i5 7th gen vpro
 * no gpu
 
->>>>>>> main
 
 
