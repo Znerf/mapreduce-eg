@@ -87,7 +87,7 @@ def run_hadoop_job(jar_file, input_text, searchword):
 
 
 # main
-serachword= "the"
+serachword= "is"
 jar_file = "WordSearch/wordsearch.jar"
 input_text = "Hello world Hello Hadoop\nThis is a simple test\nHello again"
 run_hadoop_job(jar_file, input_text, serachword)
