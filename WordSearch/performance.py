@@ -114,7 +114,7 @@ def run_hadoop_job(jar_file, input_file, searchword):
 
 
 # main
-jar_file = "count/wordsearch.jar"
+jar_file = "WordSearch/wordsearch.jar"
 serachword= "is"
 
 for x in ["4.txt","8.txt","12.txt","16.txt"]:
