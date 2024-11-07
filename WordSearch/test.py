@@ -22,7 +22,7 @@ def run_hadoop_job(jar_file, input_text):
 
 
             hadoop_cmd = [
-                'hadoop', 'jar', jar_file, 'Sentiment',
+                'hadoop', 'jar', jar_file, 'WordSearch',
                 hdfs_input_path,
                 hdfs_output_dir
             ]
@@ -87,7 +87,7 @@ def run_hadoop_job(jar_file, input_text):
 
 
 # main
-jar_file = "sentiment/sentiment.jar"
+jar_file = "WordSearch/wordsearch.jar"
 input_text = "Hello world Hello Hadoop\nThis is a simple test\nHello again"
 run_hadoop_job(jar_file, input_text)
 
