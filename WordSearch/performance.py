@@ -134,4 +134,5 @@ for x in ["4.txt","8.txt","12.txt","16.txt"]:
     print("Executing file ::",x)
     input_text = "txt/"+x
     run_hadoop_job(jar_file, input_text, serachword)
+    print()
 
