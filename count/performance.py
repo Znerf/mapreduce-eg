@@ -2,6 +2,7 @@ import subprocess
 import os
 import tempfile
 import time
+import re
 
 def measure_time(func):
     def wrapper(*args, **kwargs):
@@ -36,11 +37,11 @@ def run_hadoop_job(jar_file, input_file):
         hadoop_cmd = [
             'hadoop', 'jar', jar_file, 'WordCount',
             hdfs_input_path,
-            hdfs_output_dir, "> /logs/job.log 2>&1"
+            hdfs_output_dir
         ]
 
         process_start = time.time()
-        process = subprocess.Popen(hadoop_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        process = subprocess.Popen(hadoop_cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         stdout, stderr = process.communicate()
         process_end = time.time()
 
@@ -49,6 +50,17 @@ def run_hadoop_job(jar_file, input_file):
         clearing_start = time.time()
         if process.returncode == 0:
             print("Hadoop job completed successfully.")
+            
+            metrics = {}
+            for line in stdout.decode('utf-8').splitlines():
+                match = re.match(r"\s*(.+?)=(\d+)", line)
+                if match:
+                    key, value = match.groups()
+                    metrics[key.strip()] = int(value)
+
+            # Print variables serially
+            for i, (key, value) in enumerate(metrics.items(), start=1):
+                print( key ,":",  value)
 
             output_files_cmd = ["hdfs", "dfs", "-ls", hdfs_output_dir]
             output_files_process = subprocess.Popen(output_files_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
