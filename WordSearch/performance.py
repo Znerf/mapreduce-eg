@@ -2,6 +2,7 @@ import subprocess
 import os
 import tempfile
 import time
+import re
 
 def measure_time(func):
     def wrapper(*args, **kwargs):

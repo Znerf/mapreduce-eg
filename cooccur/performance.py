@@ -2,6 +2,7 @@ import subprocess
 import os
 import tempfile
 import time
+import re
 
 def measure_time(func):
     def wrapper(*args, **kwargs):
@@ -49,7 +50,7 @@ def run_hadoop_job(jar_file, input_file):
         clearing_start = time.time()
         if process.returncode == 0:
             print("Hadoop job completed successfully.")
-            
+
             metrics = {}
             for line in stdout.decode('utf-8').splitlines():
                 match = re.match(r"\s*(.+?)=(\d+)", line)
