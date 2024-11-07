@@ -18,11 +18,36 @@ public class Sentiment {
     public static class TokenizerMapper extends Mapper<Object, Text, Text, IntWritable> {
 
         private static final Set<String> positiveWords = new HashSet<>(Arrays.asList(
-            "good", "happy", "joy", "awesome", "excellent", "great", "positive", "love", "like", "amazing"
+           "Good", "Great", "Excellent", "Fantastic", "Wonderful", "Awesome", "Positive", "Happy", 
+            "Joyful", "Amazing", "Inspiring", "Motivating", "Encouraging", "Optimistic", "Successful", 
+            "Powerful", "Love", "Caring", "Generous", "Kind", "Affectionate", "Supportive", "Creative", 
+            "Bright", "Healthy", "Strong", "Vibrant", "Radiant", "Grateful", "Lucky", "Fortunate", 
+            "Peaceful", "Calm", "Confident", "Empowered", "Fulfilling", "Prosperous", "Charming", 
+            "Lively", "Warm", "Compassionate", "Resilient", "Inspirational", "Uplifting", "Content", 
+            "Successful", "Energetic", "Optimistic", "Hopeful", "Loving", "Appreciative", "Gracious",
+            "Brilliant", "Phenomenal", "Fantastic", "Splendid", "Delightful", "Exquisite", "Radiant", 
+            "Stellar", "Remarkable", "Wonderful", "Extraordinary", "Majestic", "Peaceful", "Joyous", 
+            "Satisfying", "Refreshing", "Motivational", "Empathetic", "Harmonious", "Blessed", "Serene", 
+            "Prosperous", "Exciting", "Sublime", "Luminous", "Admired", "Admirable", "Noble", "Benevolent", 
+            "Courageous", "Dazzling", "Invigorating", "Gracious", "Joyous", "Affable", "Fun-loving", 
+            "Faithful", "Compassionate", "Mindful", "Balanced", "Loyal", "Luminous", "Serene", "Euphoric", 
+            "Tender", "Soulful", "Open-hearted", "Flourishing", "Fabulous", "Unique", "Intelligent", 
+            "Thoughtful", "Brave", "Enlightened", "Caring", "Trustworthy", "Humble", "Honorable"
         ));
         
         private static final Set<String> negativeWords = new HashSet<>(Arrays.asList(
-            "bad", "sad", "angry", "terrible", "awful", "hate", "dislike", "horrible", "negative", "poor"
+             "No", "Not", "None", "Never", "Nowhere", "Nothing", "Nobody", "Neither",  // General Negative Words
+            "Bad", "Worse", "Worst", "Ugly", "Poor", "Terrible", "Horrible", "Awful", 
+            "Dirty", "Mean", "Sad", "Guilty", "Unfair", "Harmful", "Wrong", "Unhappy", 
+            "Weak", "Disappointing", "Hopeless",  // Negative Adjectives
+            "Hate", "Reject", "Blame", "Criticize", "Fail", "Lose", "Hurt", "Destroy", 
+            "Break", "Ruin", "Mislead", "Neglect", "Deny", "Abandon", "Cheat",  // Negative Verbs
+            "Problem", "Error", "Failure", "Conflict", "Crisis", "Risk", "Danger", 
+            "Loss", "Pain", "Suffering", "Fear", "Mistake", "Misery", "Anger", "Guilt", 
+            "Threat", "Obstacle", "Disease",  // Negative Nouns
+            "Barely", "Hardly", "Scarcely", "Never", "Poorly", "Badly", "Worse",  // Negative Adverbs
+            "Alone", "Unwanted", "Rejected", "Cold", "Stuck", "Broken", "Delayed", 
+            "Absent", "Low", "Dead"  // Contextual Negative Words
         ));
 
         private final static IntWritable one = new IntWritable(1);
