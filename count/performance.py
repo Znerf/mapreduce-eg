@@ -36,7 +36,7 @@ def run_hadoop_job(jar_file, input_file):
         hadoop_cmd = [
             'hadoop', 'jar', jar_file, 'WordCount',
             hdfs_input_path,
-            hdfs_output_dir
+            hdfs_output_dir, "> /logs/job.log 2>&1"
         ]
 
         process_start = time.time()
