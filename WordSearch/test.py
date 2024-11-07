@@ -2,7 +2,7 @@ import subprocess
 import os
 import tempfile
 
-def run_hadoop_job(jar_file, input_text):
+def run_hadoop_job(jar_file, input_text, searchword):
     try:
         with tempfile.NamedTemporaryFile(delete=False, suffix='.txt') as temp_input_file:
             temp_input_file.write(input_text.encode('utf-8'))
@@ -11,7 +11,7 @@ def run_hadoop_job(jar_file, input_text):
             hdfs_input_path = "/tmp/temp_input_file.txt"  
             hdfs_output_dir = "/tmp/hadoop_output"         
 
-            upload_cmd = ["hdfs", "dfs", "-put", temp_input_file.name, hdfs_input_path, "the"]
+            upload_cmd = ["hdfs", "dfs", "-put", temp_input_file.name, hdfs_input_path]
             upload_process = subprocess.Popen(upload_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             upload_stdout, upload_stderr = upload_process.communicate()
 
@@ -24,7 +24,7 @@ def run_hadoop_job(jar_file, input_text):
             hadoop_cmd = [
                 'hadoop', 'jar', jar_file, 'WordSearch',
                 hdfs_input_path,
-                hdfs_output_dir
+                hdfs_output_dir, searchword
             ]
 
 
@@ -87,7 +87,8 @@ def run_hadoop_job(jar_file, input_text):
 
 
 # main
+serachword= "the"
 jar_file = "WordSearch/wordsearch.jar"
 input_text = "Hello world Hello Hadoop\nThis is a simple test\nHello again"
-run_hadoop_job(jar_file, input_text)
+run_hadoop_job(jar_file, input_text, serachword)
 
