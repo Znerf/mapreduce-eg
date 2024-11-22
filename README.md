@@ -21,24 +21,21 @@ Before starting, install and make sure the following work on your system
 
 ### Installation & Setup
 
-1. Clone the hadoop docker repository to run the hadoop server
-    - `git clone https://github.com/big-data-europe/docker-hadoop`
-2. Then clone our repo
+1. Then clone our repo
     - `git clone https://github.com/Znerf/mapreduce-eg.git`
-3. `cd` into the docker hadoop directory
 4. Start Docker Desktop
-5. Run `docker-compose up -d`
+5. cd to the repo, then run `docker-compose up -d`
 6. Wait for the containers to boot up
 7. Copy our repo into the namemode server
-    - `cd` into to the directory that holds the mapreduce-eg folder
+    - `cd` into to the parent directory that holds the mapreduce-eg folder
     - run `docker cp mapreduce-eg namenode:/tmp`
 8. Enter the namenode server with `docker exec -it namenode bash`. This will give you the terminal for the server.
+9. cd into the `tmp/mapreduce` directory, run `bash setup.sh`
 9. Other (possibly) needed commands
     - Run `hdfs dfs -mkdir -p /user/root`
     - Run `hdfs dfs -mkdir /user/root/input`
 
 ### Executing (Word Count) Program
-Currently the only working example is the validation script for count. The validation scripts for CoOccurrence and Sentiment are functional for running an example, but do not validate the output for the time being. 
 
 Once you are ready to run the program, make sure you are still in the shell for the server and navigate to `/tmp/mapreduce-eg/count`
 
@@ -50,38 +47,30 @@ The output should show that the hadoop job was completed successfully, then outp
 
 It will also run a simple calculation to determine the percent match to the "groundtruth" numbers that were preliminarily calculated by this online tool https://design215.com/toolbox/wordlist.php
 
-The validation psuedocode for similarity is as follows:
-```
-Make map1 of ground-truth string from file (word:number of occurences)
-Make map2 of result from mapreduce
-
-for every word in map1
-    if matching word in map2
-        num1 and num2 for word in map1 and map2
-        max = max(num1, num2)
-        absdiff = absolute value (num1 - num2)
-        similarity = (1 - (absDifference / max)) * 100;
-        percentage += similarity;
-
-overall similarity = percentage / total words
-```
+All other cases are executable with java (commands below)
 
 ## Test datasets
 
 A sample dataset is included in the /txt/ directory for validation purposes. 
 
 ## Overview
-This Repo Contains 3 MapReduce operations:
+This Repo Contains 6 MapReduce operations:
 1. Word Count
 2. Word Cooccurance
 3. Sentiment Count
+4. Max Sentence Length
+5. Most Frequent Word
+6. Word Search
 
-## Testing each case
-1. `/tmp/mapreduce-eg/count` -> `javac ValidateCount.java` -> `java ValidateCount`
-2. `/tmp/mapreduce-eg/coocur` -> `javac ValidateCoOccur.java` -> `java ValidateCoOccur`
-3. `/tmp/mapreduce-eg/sentiment`-> `javac ValidateSentiment.java` -> `java ValidateSentiment`
+## Validating each case
+1. `python3 maxlength/validate.py`
+2. `python3 mostfrequentword/validate.py`
+3. `python3 sentiment/validate.py`
+4. `python3 WordSearch/test.py` <- This one is different since it didn't make as much sense to make a validation script. The test uses the word "is" for search and is searching over "Hello world Hello Hadoop\nThis is a simple test\nHello again"
 
-You only have to run `javac` once per `*.java` file. 
+Each folder has a `test.py` you can execute as well to see it work.
+
+NOTE: you must be in the parent mapreduce-eg directory for the python scripts to work properly.
 
 ## Calculating Performance
 This will give you loading time, mapreduce time and unloading time. For the running of this, one must add 4.txt,8.txt,12.txt and 16.txt in txt folder.
@@ -97,14 +86,9 @@ Add some txt file in input folder. To get individual MapReduce element performan
 hadoop jar wordoccur.jar WordCoOccurrence /input /output2
 ```
 
-**NOTE**: Did not get to converting and debugging performance scripts into Java due to time constraint. Running python does not work in this docker environment due to the debian version being outdated and not allowing `apt-get install` of python. 
-
-## Further
-Python variation of code are ran in ubuntu system and mightnot work in other operating system. 
-
 ## Help
 
-Contact the Authors for the support
+Contact the Authors for support
 
 ## Authors
 

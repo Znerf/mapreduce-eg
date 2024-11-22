@@ -1,9 +1,9 @@
 import subprocess
 import os
 import tempfile
-import re
 
 def run_hadoop_job(jar_file, input_text):
+    output = ""
     try:
         with tempfile.NamedTemporaryFile(delete=False, suffix='.txt') as temp_input_file:
             temp_input_file.write(input_text.encode('utf-8'))
@@ -23,7 +23,7 @@ def run_hadoop_job(jar_file, input_text):
 
 
             hadoop_cmd = [
-                'hadoop', 'jar', jar_file, 'WordCount',
+                'hadoop', 'jar', jar_file, 'MostFrequentWord',
                 hdfs_input_path,
                 hdfs_output_dir
             ]
@@ -50,12 +50,22 @@ def run_hadoop_job(jar_file, input_text):
                         cat_process = subprocess.Popen(cat_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
                         cat_stdout, cat_stderr = cat_process.communicate()
                         print(cat_stdout.decode())
+                        output = cat_stdout.decode()
                 else:
                     print("Failed to list output files.")
                     print("Errors:\n", output_files_stderr.decode())
             else:
                 print("Hadoop job failed with return code:", process.returncode)
                 print("Errors:\n", stderr.decode())
+
+            # VALIDATION
+            expected = "the   38"
+            print()
+            print("VALIDATION CHECK")
+            print("\tEXPECTED OUTPUT: " + expected)
+            print("\tACTUAL OUTPUT: " + output)
+            print()
+            ############
 
             
             os.remove(temp_input_file.name)
@@ -88,20 +98,8 @@ def run_hadoop_job(jar_file, input_text):
 
 
 # main
-count_actual = 824.0 # Actual number of words in passage1.txt
-
-jar_file = "count/wordcount.jar"
-
-with open("txt/passage1.txt") as file: # Read the sample txt file for validation purposes.
-    content = file.read()
-
-input_text = content
+jar_file = "mostfrequentword/frequent.jar"
+with open("txt/passage1.txt", "r", encoding="utf-8") as f:
+    input_text = f.read()
 run_hadoop_job(jar_file, input_text)
 
-with open("/tmp/hadoop_output") as file:
-    result = file.read()
-
-result_num = re.findall(r'd+', result) # Regex to extract the numerical data from the output file. 
-result_num = [int(num) for num in result_num]
-
-print(f"\n-------\nRESULTS\n\t{result_num[0]/count_actual}%\n\t({result_num[0]}/{count_actual})\n")
