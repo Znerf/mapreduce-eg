@@ -21,33 +21,31 @@ Before starting, install and make sure the following work on your system
 
 ### Installation & Setup
 
-1. Then clone our repo
+1. In a terminal/command line, clone our repo
     - `git clone https://github.com/Znerf/mapreduce-eg.git`
-4. Start Docker Desktop
-5. cd to the repo, then run `docker-compose up -d`
+4. Start Docker Desktop application
+5. `cd` into the repo, then run `docker-compose up -d`
 6. Wait for the containers to boot up
 7. Copy our repo into the namemode server
-    - `cd` into to the parent directory that holds the mapreduce-eg folder
+    - `cd` into to the directory that holds the `mapreduce-eg` folder
     - run `docker cp mapreduce-eg namenode:/tmp`
 8. Enter the namenode server with `docker exec -it namenode bash`. This will give you the terminal for the server.
-9. cd into the `tmp/mapreduce` directory, run `bash setup.sh`
+9. cd into the `/tmp/mapreduce-eg` directory, run `bash setup.sh`
 9. Other (possibly) needed commands
-    - Run `hdfs dfs -mkdir -p /user/root`
-    - Run `hdfs dfs -mkdir /user/root/input`
+    - `hdfs dfs -mkdir -p /user/root`
+    - `hdfs dfs -mkdir /user/root/input`
 
 ### Executing (Word Count) Program
 
 Once you are ready to run the program, make sure you are still in the shell for the server and navigate to `/tmp/mapreduce-eg/count`
 
-`javac ValidateCount.java` to compile the validation program (will be precompiled in future).
+`javac ValidateCount.java` to compile the validation program.
 
 `java ValidateCount` to run
 
-The output should show that the hadoop job was completed successfully, then output the mapreduce word count result for all words in the test input text file. 
+The output should show that the hadoop job was completed successfully, then output the mapreduce word count result for all words in the test input text file and a similarity score between the expected and actual output. 
 
-It will also run a simple calculation to determine the percent match to the "groundtruth" numbers that were preliminarily calculated by this online tool https://design215.com/toolbox/wordlist.php
-
-All other cases are executable with java (commands below)
+All other cases are executable with python (commands below)
 
 ## Test datasets
 
@@ -73,15 +71,15 @@ Each folder has a `test.py` you can execute as well to see it work.
 NOTE: you must be in the parent mapreduce-eg directory for the python scripts to work properly.
 
 ## Calculating Performance
-This will give you loading time, mapreduce time and unloading time. For the running of this, one must add 4.txt,8.txt,12.txt and 16.txt in txt folder.
+This will give you loading time, mapreduce time and unloading time. Uses the 4.txt, 8.txt, 12.txt, and 16.txt files in the `txt/` dir
 
 ```
 python3 count/performance.py
 python3 cooccur/performance.py
 python3 sentiment/performance.py
-
+...
 ```
-Add some txt file in input folder. To get individual MapReduce element performance, use 
+To get individual MapReduce element performance, use 
 ```
 hadoop jar wordoccur.jar WordCoOccurrence /input /output2
 ```
