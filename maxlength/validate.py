@@ -113,9 +113,10 @@ def main():
         jar_file = "maxlength/maxsentencelen.jar"
         with open("txt/passage1.txt", "r", encoding="utf-8") as f:
             input_text = f.read()
-
+        
+        expected = "Max Sentence    Longest sentence length: 250, Sentence: I rather think the latter. Clive Thompson wrote last month in the NYT Magazine that constant digital updates, after a day, can begin 'to feel like a short story; follow it for a month, and it's a novel.' He was right to see the bits as part of a larger whole."
         result = run_hadoop_job(jar_file, input_text)
-        print("\n\nRESULT: " + str(similarity(count_actual, result)) + "% Similarity\n\n")
+        print("\n\nEXPECTED: "+ expected +"\nRESULT: " + str(similarity(count_actual, result)) + "% Similarity\n\n")
 
         cleanup_hdfs("/tmp/hadoop_output")
 
