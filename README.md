@@ -88,6 +88,7 @@ hadoop jar wordoccur.jar WordCoOccurrence /input /output2
 Sometimes the scripts do not remove certain files and will return an error. Try the following:
 - `hdfs dfs -rm -r /tmp/hadoop_output`
 - `hdfs dfs -rm -r /tmp/temp_input_file.txt`
+  
 Contact the Authors for support
 
 ## Authors
